@@ -1,0 +1,10 @@
+@use './abstracts/variables' as var ;
+
+.layoutContainer{
+    background-color: #fcfcfc;
+    .main{
+        min-height: 80vh;
+        margin-top: 30px;
+        background-color: #fcfcfc;
+    }
+}

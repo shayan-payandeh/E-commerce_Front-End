@@ -1,0 +1,10 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/mixin' as m ;
+
+.orderSummaryCard{
+    background-color: #f7f7f7;
+
+    .placeOrderButton {
+      @include m.btn(var.$primary)   
+    }
+}

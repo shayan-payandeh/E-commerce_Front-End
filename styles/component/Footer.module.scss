@@ -1,0 +1,42 @@
+@use '../abstracts/variables' as var;
+
+.footer {
+    margin-top: 100px;
+    margin-bottom: 0px !important;
+    box-sizing: border-box;
+    direction: rtl;
+    color: #ffffff;
+    height: 250px;
+    @media screen and(max-width: 768px) {
+        box-sizing: border-box;
+        padding-top: 30px;
+        font-size: 12px;
+    }
+    .mainFooter{
+        background-color: var.$primaryShadow; 
+        
+        .column{
+            height: 200px;
+            padding: 20px;
+            color: #ffffff;
+
+            .columnTitleContainer {
+                text-align: right;
+                @media screen and(max-width: 768px) {
+                    text-align: center;
+                }
+            }
+
+            .columnListItemsContainer{
+                @extend .columnTitleContainer;
+                font-size: 14px;
+            }
+            
+        }
+    }
+    .rightContainer{
+        height: 65px;
+        line-height: 65px;
+        background-color: var.$primary; 
+    }
+}

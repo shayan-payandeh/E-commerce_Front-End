@@ -1,0 +1,55 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/mixin' as button;
+// @mixin btn($bg-color) {
+//   cursor: pointer;
+//   border-radius: 7px;
+//   border-style: none;
+//   // border-bottom-left-radius: 0;
+//   text-transform: capitalize;
+//   padding: 11px 20px;
+//   background-color: $bg-color;
+//   transition: all 0.3s;
+//   font-family: pacifico;
+//   &:hover {
+//     border-radius: 0;
+//     box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+//     @if ($bg-color == #fff) {
+//       background-color: darken($color: $bg-color, $amount: 2);
+//     } @else {
+//       background-color: lighten($color: $bg-color, $amount: 4);
+//     }
+//   }
+@each $key, $val in var.$colors {
+  $paddingTB: 11px;
+  $paddingRL: 20px;
+
+  .btn-outlined-#{$key} {
+    @include button.btn(#fff);
+    border: solid 2px $val;
+    color: #000;
+    padding: $paddingTB $paddingRL;
+  }
+
+  .btn-#{$key} {
+    @include button.btn($val);
+    color: #fff;
+    padding: $paddingTB $paddingRL;
+  }
+
+  @for $i from 1 through 5 {
+    $lightValue: lighten($val, $i * 3);
+    $darkValue: darken($val, $i * 3);
+
+    .btn-#{$key}-light-#{$i} {
+      @include button.btn($lightValue);
+      color: #fff;
+      padding: $paddingTB $paddingRL;
+    }
+
+    .btn-#{$key}-dark-#{$i} {
+      @include button.btn($darkValue);
+      color: #fff;
+      padding: $paddingTB $paddingRL;
+    }
+  }
+}

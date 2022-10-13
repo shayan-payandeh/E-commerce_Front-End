@@ -1,0 +1,88 @@
+@use 'sass:math';
+@use '../abstracts/variables' as var;
+
+$utilities: (
+  'margin': (
+    'prefix': 'm',
+    'values': (
+      '0': 0,
+      '1': var.$base-margin,
+      '2': var.$base-margin * 2,
+      '3': var.$base-margin * 4,
+      '4': var.$base-margin * 6,
+      '5': var.$base-margin * 8,
+    ),
+  ),
+  'margin-left': (
+    'prefix': 'ml',
+    'values': (
+      '0': 0,
+      '1': var.$base-margin,
+      '2': var.$base-margin * 2,
+      '3': var.$base-margin * 4,
+      '4': var.$base-margin * 6,
+      '5': var.$base-margin * 8,
+    ),
+  ),
+  'margin-top': (
+    'prefix': 'mt',
+    'values': (
+      '0': 0,
+      '1': var.$base-margin,
+      '2': var.$base-margin * 2,
+      '3': var.$base-margin * 4,
+      '4': var.$base-margin * 6,
+      '5': var.$base-margin * 8,
+    ),
+  ),
+  'padding': (
+    'prefix': 'p',
+    'values': (
+      '0': 0,
+      '1': var.$base-padding,
+      '2': var.$base-padding * 2,
+      '3': var.$base-padding * 4,
+      '4': var.$base-padding * 6,
+      '5': var.$base-padding * 8,
+    ),
+  ),
+  'padding-left': (
+    'prefix': 'pl',
+    'values': (
+      '0': 0,
+      '1': var.$base-padding,
+      '2': var.$base-padding * 2,
+      '3': var.$base-padding * 4,
+      '4': var.$base-padding * 6,
+      '5': var.$base-padding * 8,
+    ),
+  ),
+  'padding-right': (
+    'prefix': 'pr',
+    'values': (
+      '0': 0,
+      '1': var.$base-padding,
+      '2': var.$base-padding * 2,
+      '3': var.$base-padding * 4,
+      '4': var.$base-padding * 6,
+      '5': var.$base-padding * 8,
+    ),
+  ),
+);
+
+@each $property, $map in $utilities {
+  $prefix: map-get($map, 'prefix');
+  $values: map-get($map, 'values');
+
+  @each $key, $value in $values {
+    @if ($key == 'default') {
+      .#{$prefix} {
+        #{$property}: $value;
+      }
+    } @else {
+      .#{$prefix}-#{$key} {
+        #{$property}: $value;
+      }
+    }
+  }
+}

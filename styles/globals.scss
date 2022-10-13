@@ -1,0 +1,28 @@
+@import './core/base';
+@import './abstracts/font';
+@import './layout/flex.scss';
+@import './abstracts/colors';
+@import './abstracts/utilities';
+@import './abstracts/breakpoints';
+@import './component/button';
+// @import './layout/grid';
+
+*{
+  font-family: 'sahel' !important;
+}
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translate(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateY(100px);
+}
+

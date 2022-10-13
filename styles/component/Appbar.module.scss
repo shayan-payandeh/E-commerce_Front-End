@@ -1,0 +1,127 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/mixin' as m;
+
+.grow {
+    flex-grow: 1,
+}
+  
+.mainNavbar {
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: var.$primary;
+
+    @media screen and (max-width: 768px) {
+      padding: 4px 1px;
+    }
+
+    & a {
+      color: #ffffff;
+    } 
+  
+    .languageText{
+      color: #ffffff;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-top: 3px;
+      font-size: 12px;
+      
+      @media screen and (max-width: 768px) {
+        margin-left: 1px;
+        margin-right: 1px;
+      }
+    }
+  
+    .navbarButton{
+        text-transform: capitalize;
+        margin-left: 15px;
+        box-shadow: 0 0px 2px 0px #c9c9c9;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        text-align: start;
+        width: 140px;
+        color: white;
+        background-color: var.$primaryShadow;
+        text-transform: lowercase;
+
+        &:hover {
+          color: white;
+          background: lighten($color: var.$primaryShadow, $amount: 3);
+        }
+
+        @media(max-width: 768px) {
+          margin-left: 7px;
+          width: 100px;
+          font-size: 11px;
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+      
+    }
+
+    .menu{
+        margin-top: 0px;
+        margin-left: 10px;
+
+        .menuItem{
+          font-size: 19px;
+          padding: 8px 45px;
+
+          @media(max-width: 768px) {
+            font-size: 13px;
+            padding: 2px 22px;
+          }
+        }
+    }
+          
+}
+   
+  
+  
+.secondNavbar {
+    // position: sticky !important;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px 0px #c2c2c2; 
+    min-height: 50px;
+
+    @media screen and(max-width: 768px) {
+      display: none;
+    }
+  
+  
+    .activeTab{
+      @include m.tab;
+      font-weight: 'bold';
+      border-bottom: 2px solid #d10023;
+      
+      .menuItemText {
+        color: var.$primaryShadow;
+      }
+    }
+  
+    .tab {
+      @include m.tab;
+      margin: 0px;
+
+      &:hover{
+        padding: '11px 40px';
+        background-color: #ebebeb;
+      };
+      .menuItemText {
+        color: var.$primaryShadow;
+      }
+    }
+  }
+  
+.secondeNavbarMobile {
+    position: static;
+    display: none;
+    padding: 0;
+    box-shadow: 0 0 10px 0px #c2c2c2;
+
+    @media(max-width: 768px) {
+      display: block,
+    }
+}
+  
+  

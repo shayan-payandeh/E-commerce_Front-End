@@ -1,0 +1,32 @@
+@use '../abstracts/variables' as var;
+
+
+.carouselContainer {
+    margin-top: 50px;
+    color: black;
+    padding: 35px 50px ;
+    border: 1px solid rgb(223, 223, 223);
+    border-radius: 10px;
+    box-shadow:  rgba(0, 0, 0, 0.07) 0px 10px 50px;
+    .titleContainer{
+      font-size: 20px;
+      text-align: center;
+    }
+    .carousel {
+      padding: 0px;
+
+      .carouselCard {
+        cursor: pointer;
+        border: 1px solid  rgba(0, 0, 0, 0.1);
+        margin-top: 35px;
+        margin-left: 0px;
+        margin-bottom: 2px;
+        height: 340px;
+        width: 250px;
+        transition: .4s ease;
+       
+      }
+    }
+
+    
+  }

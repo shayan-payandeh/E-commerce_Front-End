@@ -1,0 +1,27 @@
+@mixin btn($bg-color) {
+  background-color: $bg-color;
+  cursor: pointer;
+  border-radius: 7px;
+  border-style: none;
+  font-size: 15px;
+  text-transform: capitalize;
+  padding: 10px 14px;
+  transition: all 0.3s;
+
+  &:hover {
+    // box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    @if ($bg-color == #fff) {
+      background-color: darken($color: $bg-color, $amount: 2);
+    } @else {
+      background-color: lighten($color: $bg-color, $amount: 4);
+    }
+  }
+}
+
+@mixin tab {
+  box-sizing: 'border-box';
+  padding: 15px 40px;
+  text-transform: 'capitalize';
+  color: #616161;
+  transition: ease-in-out .4s;
+}

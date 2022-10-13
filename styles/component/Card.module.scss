@@ -1,0 +1,18 @@
+@use '../abstracts/variables' as var;
+@use '../abstracts/mixin' as m;
+
+.card {
+    margin-bottom: 20px;
+    box-shadow:  rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    
+    @media(max-width: 768px) {
+      width: 90%;
+      border: 2px solid rgba(0, 0, 0, 0.24) ;
+      margin: 10px 17px;
+    }
+
+    .addButton {
+      @include m.btn(var.$primary);
+      text-transform: none;
+    }
+  }

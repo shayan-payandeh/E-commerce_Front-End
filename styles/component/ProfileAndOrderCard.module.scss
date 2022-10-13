@@ -1,0 +1,20 @@
+@use '../abstracts/variables' as var;
+
+.section {
+  box-shadow: var.$boxShadow;
+  padding: 0;
+  margin-top: 10px;
+
+  .item{
+    &:hover{
+      background-color: lighten($color: var.$primary, $amount: 70);
+    }
+  }
+
+  .activeItem {
+    background-color: lighten($color: var.$primary, $amount: 63);
+    &:hover{
+      background-color: lighten($color: var.$primary, $amount: 70);
+    }
+  }
+}
