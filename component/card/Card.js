@@ -6,14 +6,25 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  Input,
+  TextField,
   Typography,
 } from '@mui/material';
 import NextLink from 'next/link';
 import styles from '@/styles/component/Card.module.scss';
 import priceConvertor from '@/utils/priceConvertor';
 import { priceUnit, productsUrl } from '@/utils/values';
+import { useEffect, useState } from 'react';
 
-function ProductCard({ product, language, addToCartHandler }) {
+function ProductCard({ product, language, addToCartHandler, cartItems }) {
+  const [cartFlag, setCartFlag] = useState(true);
+  const theItem = cartItems.find((item) => item.slug === product.slug);
+
+  useEffect(() => {
+    if (theItem) {
+      setCartFlag(false);
+    } else setCartFlag(true);
+  }, [cartItems]);
   return (
     <Card className={styles.card}>
       <NextLink href={`${productsUrl}/${product.slug}`} passHref>
@@ -63,16 +74,51 @@ function ProductCard({ product, language, addToCartHandler }) {
         </CardActionArea>
       </NextLink>
       <CardActions style={{ padding: 0 }}>
-        <Button
-          onClick={() => addToCartHandler(product)}
-          fullWidth
-          variant="contained"
-          className={styles.addButton}
-        >
-          <span style={{ fontSize: '13px' }}>
-            {language === 'English' ? 'Add To Cart' : 'افزودن به سبد خرید'}
-          </span>
-        </Button>
+        {cartFlag && (
+          <Button
+            onClick={() => addToCartHandler(product, 1)}
+            fullWidth
+            variant="contained"
+            className={styles.addButton}
+          >
+            <span style={{ fontSize: '13px' }}>
+              {language === 'English' ? 'Add To Cart' : 'افزودن به سبد خرید'}
+            </span>
+          </Button>
+        )}
+        {!cartFlag && theItem && (
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+            }}
+          >
+            <Button
+              onClick={() => addToCartHandler(product, -1)}
+              style={{
+                backgroundColor: styles.primary,
+                color: 'white',
+                fontSize: '16px',
+              }}
+            >
+              -
+            </Button>
+            <TextField
+              inputProps={{ style: { textAlign: 'center', padding: '9px' } }}
+              value={theItem.quantity}
+            />
+            <Button
+              onClick={() => addToCartHandler(product, 1)}
+              style={{
+                backgroundColor: styles.primary,
+                color: 'white',
+                fontSize: '16px',
+              }}
+            >
+              +
+            </Button>
+          </div>
+        )}
       </CardActions>
     </Card>
   );

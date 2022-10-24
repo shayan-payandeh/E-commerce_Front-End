@@ -83,10 +83,10 @@ function Products({ productsInit, categories, brands }) {
     routerPush(router);
   };
 
-  const addToCartHandler = (product) => {
+  const addToCartHandler = (product, number) => {
     const existItem = cartItems.find((item) => item._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    if (product.countInStock < quantity) {
+    const quantity = existItem ? existItem.quantity + number : 1;
+    if (product.countInStock < quantity && quantity > 0) {
       closeSnackbar();
       const errorMessage =
         language === 'English'
@@ -94,9 +94,10 @@ function Products({ productsInit, categories, brands }) {
           : 'محصول مورد نظر با این تعداد موجود نیست';
       enqueueSnackbar(errorMessage, { variant: 'error' });
       return;
+    } else if (quantity === 0) {
+      return dispatch({ type: 'CART_REMOVE_ITEM', payload: product });
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
-    router.push(`${cartUrl}`);
   };
 
   const pageNumberLabelHandle = (item) => {
@@ -161,6 +162,7 @@ function Products({ productsInit, categories, brands }) {
                 product={product}
                 language={language}
                 addToCartHandler={addToCartHandler}
+                cartItems={cartItems}
               />
             </Grid>
           ))}
