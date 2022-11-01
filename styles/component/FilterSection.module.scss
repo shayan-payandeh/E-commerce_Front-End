@@ -1,6 +1,6 @@
 @use '../abstracts/variables' as var;
 .filterSection {
-    @media(max-width: 768px){
+    @media(max-width: 899px){
       display: none;
     }
   }
@@ -10,13 +10,13 @@
     width: 90%;
     border: 2px solid rgba(0, 0, 0, 0.24) ;
     margin: 10px auto;
-    @media(max-width: 768px) {
+    @media(max-width: 899px) {
       display: block;
     };
   };
 
   .silderFilterSection{
-    @media(max-width: 768px) {
+    @media(max-width: 899px) {
       display: none;   
     }
   }
@@ -25,7 +25,7 @@
     width: 90%;
     border: 2px solid rgba(0, 0, 0, 0.24) ;
     margin: 10px auto;
-    @media(max-width: 768px) {
+    @media(max-width: 899px) {
       display: block;
     }
   }

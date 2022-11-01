@@ -21,7 +21,7 @@ const SliderFilterSectionMobile = () => {
   const router = useRouter();
   const [price, setPrice] = useState([10, 99]);
   const minPriceDistance = 10;
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const [language, setLanguage] = useState('');
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const SliderFilterSectionMobile = () => {
     <>
       <Box className={styles.silderFilterSectionMobile}>
         <Accordion
-          defaultExpanded={true}
+          defaultExpanded={false}
           dir={language === 'English' ? 'ltr' : 'rtl'}
         >
           <AccordionSummary

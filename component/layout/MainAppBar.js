@@ -23,6 +23,7 @@ import logo from '@/public/images/eCommerceLogo.png';
 import styles from '@/styles/component/Appbar.module.scss';
 import persianJs from 'persianjs';
 import { orderHistoryUrl, profileUrl } from '@/utils/values';
+import dynamic from 'next/dynamic';
 
 function MainAppBar() {
   const { state, dispatch } = useContext(Store);
@@ -246,4 +247,4 @@ function MainAppBar() {
   );
 }
 
-export default MainAppBar;
+export default dynamic(() => Promise.resolve(MainAppBar), { ssr: false });
