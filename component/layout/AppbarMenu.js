@@ -1,19 +1,24 @@
 import { AppBar, Box, Link, Toolbar, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '@/styles/component/Appbar.module.scss';
 import * as Scroll from 'react-scroll';
+import { Store } from '@/utils/Store';
 
-function AppbarMenu({ language }) {
+function AppbarMenu() {
   let Links = Scroll.Link;
   let Buttons = Scroll.Button;
   let Elements = Scroll.Element;
   let Events = Scroll.Events;
   let scroll = Scroll.animateScroll;
   let scrollSpy = Scroll.scrollSpy;
+  const { state, dispatch } = useContext(Store);
+  const [language, setLanguage] = useState('');
 
   useEffect(() => {
+    setLanguage(state.language);
+
     Events.scrollEvent.register('begin', function (to, element) {
       console.log('begin', arguments);
     });

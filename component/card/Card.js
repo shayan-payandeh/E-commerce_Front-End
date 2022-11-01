@@ -41,31 +41,31 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
             >
               <Grid item md={6} xs={6}>
                 <Typography align={language === 'English' ? 'left' : 'right'}>
-                  <span>{product.name}</span>
+                  <span style={{ fontSize: '2.2vh' }}>{product.name}</span>
                 </Typography>
               </Grid>
               {language !== 'English' && (
                 <Grid item container md={6} xs={6}>
-                  <Grid item md={6} xs={6}>
-                    <span
-                      style={{
-                        fontSize: '13px',
-                        margin: '0',
-                      }}
-                    >
-                      {priceUnit}
-                    </span>
-                  </Grid>
-                  <Grid item md={6} xs={6}>
-                    <span>{priceConvertor(product.price)}</span>
-                  </Grid>
+                  <div
+                    style={{
+                      display: 'flex',
+                      width: '100%',
+                      fontSize: '2.2vh',
+                    }}
+                  >
+                    <div>{priceUnit}</div>
+                    &nbsp;
+                    <div>{priceConvertor(product.price)}</div>
+                  </div>
                 </Grid>
               )}
               {language === 'English' && (
                 <Grid item md={6} xs={6}>
                   <Typography align="right">
-                    {'$'}
-                    {product.price}
+                    <span style={{ fontSize: '2.3vh' }}>
+                      {'$'}
+                      {product.price}
+                    </span>
                   </Typography>
                 </Grid>
               )}
@@ -91,6 +91,7 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
             style={{
               display: 'flex',
               width: '100%',
+              justifyContent: 'space-between',
             }}
           >
             <Button
@@ -99,20 +100,32 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
                 backgroundColor: styles.primary,
                 color: 'white',
                 fontSize: '16px',
+                width: '23%',
               }}
             >
               -
             </Button>
-            <TextField
-              inputProps={{ style: { textAlign: 'center', padding: '9px' } }}
-              value={theItem.quantity}
-            />
+            <div style={{ width: '54%', backgroundColor: 'pink' }}>
+              <TextField
+                style={{ width: '100%' }}
+                inputProps={{
+                  style: {
+                    border: `solid 1px ${styles.primary}`,
+                    padding: '9px 0',
+                    backgroundColor: '#f8f8f8',
+                    textAlign: 'center',
+                  },
+                }}
+                value={theItem.quantity}
+              />
+            </div>
             <Button
               onClick={() => addToCartHandler(product, 1)}
               style={{
                 backgroundColor: styles.primary,
                 color: 'white',
                 fontSize: '16px',
+                width: '23%',
               }}
             >
               +

@@ -15,7 +15,13 @@ function UserProfileAndOrderCard({ pathname }) {
 
   return (
     <>
-      <Card className={styles.section}>
+      <Card
+        className={`${styles.section} ${
+          language === 'English'
+            ? styles.sectionExtraEnglish
+            : styles.sectionExtraPersian
+        }`}
+      >
         <List style={{ padding: 0 }}>
           <NextLink href={`${profileUrl}`} passHref>
             <ListItem

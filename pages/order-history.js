@@ -25,7 +25,6 @@ function OrderHistory({ userOrders }) {
   const [totalPriceFlag, setTotalPriceFlag] = useState('asc');
   const [dateFlag, setDateFlag] = useState('asc');
   const { state } = useContext(Store);
-  const { userInfo } = state;
   const router = useRouter();
   const { pathname } = router;
 
@@ -38,11 +37,9 @@ function OrderHistory({ userOrders }) {
   }, [theOrders]);
 
   const dateSortHandler = () => {
-    console.log(router.query);
     const sortValue = router.query.sort;
     window.scrollTo(0, 0);
     router.query.sort = sortValue === 'newest' ? 'oldest' : 'newest';
-    console.log(router.query.sort);
     sortValue === 'newest' ? setDateFlag('asc') : setDateFlag('dec');
     routerPush(router);
   };

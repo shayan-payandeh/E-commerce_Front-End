@@ -16,18 +16,25 @@ import { Store } from '@/utils/Store';
 import styles from '@/styles/component/FilterSection.module.scss';
 import { useRouter } from 'next/router';
 
-function FilterSection({
-  productTypes,
-  removeFilterHandler,
-  checkBoxHandler,
-  label,
-}) {
+function FilterSection({ productTypes, checkBoxHandler, label }) {
   const [language, setLanguage] = useState('');
   const { state } = useContext(Store);
   const [theCheckedArray, setTheCheckedArray] = useState([]);
   const router = useRouter();
+  const typeName = Object.keys(productTypes)[0];
+
   useEffect(() => {
-    setTheCheckedArray([...Object.values(router.query)]);
+    const valuesArray = [];
+    if (Object.keys(router.query).length > 0) {
+      const queries = Object.keys(router.query);
+      for (const iterator of queries) {
+        const values = router.query[iterator];
+        valuesArray.push(...values.split(','));
+      }
+    }
+    const checked =
+      Object.keys(router.query).length === 0 ? [] : [...valuesArray];
+    setTheCheckedArray([...checked]);
     setLanguage(state.language);
   }, [state.language, router.query]);
 
@@ -56,24 +63,27 @@ function FilterSection({
             style={language === 'English' ? {} : { paddingRight: 0 }}
           >
             <List>
-              {productTypes.map((productType, index) => (
+              {Object.values(productTypes)[0].map((productType, index) => (
                 <ListItem key={index}>
                   <FormGroup>
                     <FormControlLabel
-                      // inputProps={{ 'aria-label': 'controlled' }}
                       label={productType}
                       value={productType}
                       control={
                         <Checkbox
                           style={
                             language === 'English'
-                              ? { marginRight: '4px' }
-                              : { marginLeft: '4px' }
+                              ? { marginRight: '3px', padding: '0' }
+                              : { marginLeft: '3px', padding: '0' }
                           }
                           size="small"
                           color="info"
                           onChange={(e) =>
-                            checkBoxHandler(e.target.value, e.target.checked)
+                            checkBoxHandler(
+                              e.target.value,
+                              e.target.checked,
+                              typeName
+                            )
                           }
                           checked={
                             theCheckedArray.find((item) => item === productType)

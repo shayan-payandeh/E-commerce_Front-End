@@ -7,18 +7,14 @@ import ProductCard from '@/component/card/Card';
 import { Grid, Pagination, PaginationItem } from '@mui/material';
 import FilterSectionMobile from '@/component/filter/FilterSectionMobile';
 import styles from '@/styles/component/Products.module.scss';
-import {
-  api,
-  brandsUrl,
-  cartUrl,
-  categoriesUrl,
-  productsUrl,
-} from '@/utils/values';
+import { api, brandsUrl, categoriesUrl, productsUrl } from '@/utils/values';
 import { apiCall } from '@/utils/apiCall';
 import queryString from 'query-string';
 import routerPush from '@/utils/routerPush';
 import pageNumberLabel from '@/utils/pageNumberLabel';
 import { motion } from 'framer-motion';
+import SliderFilterSection from '@/component/filter/SliderFilterSection';
+import SliderFilterSectionMobile from '@/component/filter/SliderFilterSectionMobile';
 
 function Products({ productsInit, categories, brands }) {
   const products = productsInit.docs;
@@ -27,8 +23,10 @@ function Products({ productsInit, categories, brands }) {
   const [language, setLanguage] = useState('');
   const { state, dispatch } = useContext(Store);
   const { cartItems } = state.cart;
-  const productCategories = categories.map((category) => category.name);
-  const productBrands = brands.map((brand) => brand.name);
+  const productCategories = {
+    slug: categories.map((category) => category.name),
+  };
+  const productBrands = { brand: brands.map((brand) => brand.name) };
 
   useEffect(() => {
     setLanguage(state.language);
@@ -57,22 +55,25 @@ function Products({ productsInit, categories, brands }) {
     },
   };
 
-  const categoryFilterHandler = (value, checked) => {
+  const filterHandler = (value, checked, typeName) => {
     if (checked) {
-      router.query.slug = value;
+      router.query[typeName] =
+        router.query[typeName] && typeName !== 'price'
+          ? router.query[typeName].concat(',', value)
+          : value;
       routerPush(router);
     } else {
-      delete router.query.slug;
-      routerPush(router);
-    }
-  };
-
-  const brandFilterHandler = (value, checked) => {
-    if (checked) {
-      router.query.brand = value;
-      routerPush(router);
-    } else {
-      delete router.query.brand;
+      const string = router.query[typeName];
+      const array = string.split(',');
+      for (const i = 0; i < array.length; i++) {
+        if (array[i] === value) {
+          array.splice(i, 1);
+        }
+      }
+      const x = array.join();
+      if (x.length > 0) {
+        router.query[typeName] = x;
+      } else delete router.query[typeName];
       routerPush(router);
     }
   };
@@ -116,24 +117,26 @@ function Products({ productsInit, categories, brands }) {
         <Grid item xs={12} md={3}>
           <FilterSection
             productTypes={productCategories}
-            checkBoxHandler={categoryFilterHandler}
+            checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Category' : 'نوع'}
           />
           <FilterSection
             productTypes={productBrands}
-            checkBoxHandler={brandFilterHandler}
+            checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Brand' : 'برند'}
           />
+          <SliderFilterSection />
           <FilterSectionMobile
             productTypes={productCategories}
-            checkBoxHandler={categoryFilterHandler}
+            checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Category' : 'نوع'}
           />
           <FilterSectionMobile
             productTypes={productBrands}
-            checkBoxHandler={brandFilterHandler}
+            checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Brand' : 'برند'}
           />
+          <SliderFilterSectionMobile />
         </Grid>
 
         <Grid
@@ -152,11 +155,12 @@ function Products({ productsInit, categories, brands }) {
             <Grid
               item
               md={4}
+              sm={6}
               xs={12}
               key={product.name}
               component={motion.div}
               variants={item}
-              whileHover={{ scale: 1.02, transition: 'spring' }}
+              whileHover={{ scale: 1.01, transition: 'spring' }}
             >
               <ProductCard
                 product={product}
@@ -168,8 +172,7 @@ function Products({ productsInit, categories, brands }) {
           ))}
         </Grid>
       </Grid>
-      <br />
-      <br />
+      <br /> <br />
       <Pagination
         page={productsInit.page}
         size="large"

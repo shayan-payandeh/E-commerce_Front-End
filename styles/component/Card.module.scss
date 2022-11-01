@@ -7,7 +7,6 @@
     
     @media(max-width: 768px) {
       width: 90%;
-      border: 2px solid rgba(0, 0, 0, 0.24) ;
       margin: 10px 17px;
     }
 
@@ -16,3 +15,8 @@
       text-transform: none;
     }
   }
+
+  :export {
+    primary: var.$primary;
+    lightPrimary: var.$lightPrimary;
+}

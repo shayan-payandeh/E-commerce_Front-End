@@ -9,12 +9,19 @@ import {
   Typography,
 } from '@mui/material';
 import NextLink from 'next/link';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from '@/styles/component/Appbar.module.scss';
 import { contactUrl, productsUrl } from '@/utils/values';
+import { Store } from '@/utils/Store';
 
-function AppbarMobileMenu({ language }) {
+function AppbarMobileMenu() {
   const [expandMenu, setExpandMenu] = useState(false);
+  const { state, dispatch } = useContext(Store);
+  const [language, setLanguage] = useState('');
+
+  useEffect(() => {
+    setLanguage(state.language);
+  }, []);
 
   const clickHandler = () => {
     setExpandMenu((prev) => !prev);

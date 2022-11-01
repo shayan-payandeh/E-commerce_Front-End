@@ -16,18 +16,29 @@ import { Store } from '@/utils/Store';
 import styles from '@/styles/component/FilterSection.module.scss';
 import { useRouter } from 'next/router';
 
-function FilterSectionMoblie({
-  productTypes,
-  removeFilterHandler,
-  checkBoxHandler,
-  label,
-}) {
+function FilterSectionMoblie({ productTypes, checkBoxHandler, label }) {
   const [language, setLanguage] = useState('');
   const { state } = useContext(Store);
   const [theCheckedArray, setTheCheckedArray] = useState([]);
   const router = useRouter();
+  const typeName = Object.keys(productTypes)[0];
+
   useEffect(() => {
-    setTheCheckedArray([...Object.values(router.query)]);
+    let slugValuesArray = [];
+    let brandValuesArray = [];
+    if (router.query.slug) {
+      const slugValues = router.query.slug;
+      slugValuesArray = slugValues.split(',');
+    }
+    if (router.query.brand) {
+      const brandValues = router.query.brand;
+      brandValuesArray = brandValues.split(',');
+    }
+    const checked =
+      !router.query.slug && !router.query.brand
+        ? []
+        : [...slugValuesArray, ...brandValuesArray];
+    setTheCheckedArray([...checked]);
     setLanguage(state.language);
   }, [state.language, router.query]);
 
@@ -56,7 +67,7 @@ function FilterSectionMoblie({
             style={language === 'English' ? {} : { paddingRight: 0 }}
           >
             <List>
-              {productTypes.map((productType, index) => (
+              {Object.values(productTypes)[0].map((productType, index) => (
                 <ListItem key={index}>
                   <FormGroup>
                     <FormControlLabel
@@ -67,13 +78,17 @@ function FilterSectionMoblie({
                         <Checkbox
                           style={
                             language === 'English'
-                              ? { marginRight: '4px' }
-                              : { marginLeft: '4px' }
+                              ? { marginRight: '4px', padding: '0' }
+                              : { marginLeft: '4px', padding: '0' }
                           }
                           size="small"
                           color="primary"
                           onChange={(e) =>
-                            checkBoxHandler(e.target.value, e.target.checked)
+                            checkBoxHandler(
+                              e.target.value,
+                              e.target.checked,
+                              typeName
+                            )
                           }
                           checked={
                             theCheckedArray.find((item) => item === productType)

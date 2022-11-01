@@ -17,21 +17,25 @@ import {
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Store } from '@/utils/Store';
 import logo from '@/public/images/eCommerceLogo.png';
-import dynamic from 'next/dynamic';
 import styles from '@/styles/component/Appbar.module.scss';
 import persianJs from 'persianjs';
 import { orderHistoryUrl, profileUrl } from '@/utils/values';
 
-function MainAppBar({ language }) {
+function MainAppBar() {
   const { state, dispatch } = useContext(Store);
   const { cart, userInfo } = state;
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const open = Boolean(anchorEl);
+  const [language, setLanguage] = useState('');
+
+  useEffect(() => {
+    setLanguage(state.language);
+  }, []);
 
   const languageHandler = (language) => {
     router.reload();
@@ -74,14 +78,14 @@ function MainAppBar({ language }) {
           {/* by having flexGlow = 1 this div occupied the whole width and the next div stick to right */}
           <div className={styles.grow}></div>
 
-          {state.language === 'English' && (
+          {language === 'English' && (
             <Button onClick={() => languageHandler('Farsi')}>
               <Typography className={styles.languageText}>
                 <span>Fa</span>
               </Typography>
             </Button>
           )}
-          {state.language !== 'English' && (
+          {language !== 'English' && (
             <Button onClick={() => languageHandler('English')}>
               <Typography className={styles.languageText}>
                 <span>En</span>
@@ -242,4 +246,4 @@ function MainAppBar({ language }) {
   );
 }
 
-export default dynamic(() => Promise.resolve(MainAppBar), { ssr: false });
+export default MainAppBar;

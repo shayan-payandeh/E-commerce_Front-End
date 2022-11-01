@@ -27,9 +27,9 @@ function Layout({ children }) {
         </title>
         <meta name="description" content="nextjs e-commerce application" />
       </Head>
-      <MainAppBar language={language} />
-      <AppbarMenu language={language} />
-      <AppbarMobileMenu language={language} />
+      <MainAppBar />
+      <AppbarMenu />
+      <AppbarMobileMenu />
       <Container className={styles.main}>{children}</Container>
       <Footer />
     </div>

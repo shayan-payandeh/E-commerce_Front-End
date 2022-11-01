@@ -1,6 +1,5 @@
 @use '../abstracts/variables' as var;
 
-
 .carouselContainer {
     margin-top: 50px;
     color: black;
@@ -19,14 +18,12 @@
         cursor: pointer;
         border: 1px solid  rgba(0, 0, 0, 0.1);
         margin-top: 35px;
-        margin-left: 0px;
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: 2px;
         height: 340px;
         width: 250px;
         transition: .4s ease;
-       
       }
     }
-
-    
   }
