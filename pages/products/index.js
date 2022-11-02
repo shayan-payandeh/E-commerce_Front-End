@@ -17,7 +17,7 @@ import SliderFilterSection from '@/component/filter/SliderFilterSection';
 import SliderFilterSectionMobile from '@/component/filter/SliderFilterSectionMobile';
 
 function Products({ productsInit, categories, brands }) {
-  const products = productsInit.docs;
+  const products = productsInit.docs.length > 0 ? productsInit.docs : [];
   const router = useRouter();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [language, setLanguage] = useState('');
@@ -205,9 +205,9 @@ export async function getServerSideProps(context) {
   const brandsResult = await apiCall(`${api}${brandsUrl}`, 'get');
   return {
     props: {
-      productsInit: productsResult.data.data,
-      categories: categoriesResult.data.result,
-      brands: brandsResult.data.result,
+      productsInit: productsResult.data ? productsResult.data.data : [],
+      categories: categoriesResult.data ? categoriesResult.data.result : [],
+      brands: brandsResult.data ? brandsResult.data.result : [],
     },
   };
 }

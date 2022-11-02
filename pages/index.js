@@ -9,14 +9,18 @@ import Slideshow from '@/component/slideShow';
 import CardSlider from '@/component/card/CardSlider';
 import styles from '@/styles/Home.module.scss';
 import { api, productsUrl } from '@/utils/values';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { newestProducts } from '@/utils/limitedProducts';
 import { apiCall } from '@/utils/apiCall';
+import { Store } from '@/utils/Store';
 
 function Home({ allProducts, bestSelling }) {
   const [newProducts, setNewProducts] = useState();
+  const [language, setLanguage] = useState('');
+  const { state } = useContext(Store);
 
   useEffect(() => {
+    setLanguage(state.language);
     const products = newestProducts(allProducts);
     setNewProducts(products);
   }, []);
@@ -27,7 +31,10 @@ function Home({ allProducts, bestSelling }) {
         <Grid item container md={4} xs={12} spacing={1}>
           <Grid item md={12} xs={12}>
             <NextLink href={`${productsUrl}?slug=Shirts`} passHref>
-              <Box style={{ marginTop: `40px` }}>
+              <Box
+                className={styles.categoryContainer}
+                style={{ marginTop: `40px` }}
+              >
                 <Image
                   className={styles.categoryImage}
                   src={shirtModel1}
@@ -41,7 +48,7 @@ function Home({ allProducts, bestSelling }) {
           </Grid>
           <Grid item md={12} xs={12}>
             <NextLink href={`${productsUrl}?slug=Pants`} passHref>
-              <Box style={{}}>
+              <Box className={styles.categoryContainer}>
                 <Image
                   className={styles.categoryImage}
                   src={pantsModel2}
@@ -88,8 +95,14 @@ function Home({ allProducts, bestSelling }) {
           </NextLink>
         </Grid>
       </Grid>
-      <CardSlider products={newProducts} title="جدیدترین ها" />
-      <CardSlider products={bestSelling} title="پرفروش ترین ها" />
+      <CardSlider
+        products={newProducts}
+        title={language === 'English' ? 'Newest' : 'جدیدترین ها'}
+      />
+      <CardSlider
+        products={bestSelling}
+        title={language === 'English' ? 'BestSelling' : 'پرفروش ترین ها'}
+      />
     </>
   );
 }
@@ -98,12 +111,12 @@ export default Home;
 
 export async function getStaticProps() {
   const productsResult = await apiCall(`${productsUrl}`, 'get');
-  const products = productsResult.data.data.docs;
+  const products = productsResult.data ? productsResult.data.data.docs : [];
   const bestSellingResult = await apiCall(
     `${api}${productsUrl}/bestselling`,
     'get'
   );
-  const bestSelling = bestSellingResult.data;
+  const bestSelling = bestSellingResult.data ? bestSellingResult.data : [];
   return {
     props: {
       allProducts: products,
