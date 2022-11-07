@@ -75,17 +75,15 @@
           
 }
    
-  
-  
 .secondNavbar {
     // position: sticky !important;
-    display: flex;
+    display: none;
     justify-content: center;
     box-shadow: 0 0 10px 0px #c2c2c2; 
     min-height: 50px;
 
-    @media screen and(max-width: 768px) {
-      display: none;
+    @media screen and(min-width: 900px) {
+      display: flex;
     }
   
   
@@ -115,12 +113,12 @@
   
 .secondeNavbarMobile {
     position: static;
-    display: none;
+    display: block;
     padding: 0;
     box-shadow: 0 0 10px 0px #c2c2c2;
 
-    @media(max-width: 768px) {
-      display: block,
+    @media(min-width: 900px) {
+      display: none,
     }
 }
   

@@ -26,7 +26,10 @@ function Footer() {
   };
   return (
     <footer className={styles.footer}>
-      <div className={'row' + ' ' + styles.mainFooter}>
+      <div
+        className={'row' + ' ' + styles.mainFooter}
+        style={language !== 'English' ? { direction: 'rtl' } : {}}
+      >
         <div
           className={'row col-md-4 col-sm-12 col-xs-12' + ' ' + styles.column}
         >
@@ -37,7 +40,7 @@ function Footer() {
                 : styles.columnListItemsContainerPersian
             } `}
           >
-            {language === 'English' ? 'Links :' : ' :لینک ها'}
+            {language === 'English' ? 'Links :' : ' لینک ها :'}
           </div>
           <div
             className={`'col-md-12 col-sm-12 col-xs-12 pr-2' ${
@@ -111,7 +114,7 @@ function Footer() {
               {router.pathname !== `${profileUrl}` && (
                 <Link href={`${profileUrl}`}>
                   <a style={{ textDecoration: 'none', color: '#fff' }}>
-                    {language === 'English' ? 'Profile' : 'پروفایل'}‍‍‍‍‍‍
+                    {language === 'English' ? 'Profile' : 'پروفایل'}
                   </a>
                 </Link>
               )}
@@ -173,8 +176,8 @@ function Footer() {
           >
             <span>
               {language === 'English'
-                ? 'Email : shayan.iker@gmail.com'
-                : ' shayan.iker@gmail.com : ایمیل'}
+                ? 'Email : shayan.@gmail.com'
+                : 'ایمیل : shayan.iker@gmail.com'}
             </span>
           </div>
         </div>
@@ -199,7 +202,7 @@ function Footer() {
             <span>
               {language === 'English'
                 ? '- Fast Delivery'
-                : 'ارسال به سراسر کشور -'}
+                : '- ارسال به سراسر کشور'}
             </span>
           </div>
           <br />
@@ -214,7 +217,7 @@ function Footer() {
             <span>
               {language === 'English'
                 ? '- 7 Days guarantee'
-                : 'هفت روز ضمانت بازگشت -'}
+                : '- هفت روز ضمانت بازگشت'}
             </span>
           </div>
           <br />
@@ -229,7 +232,7 @@ function Footer() {
             <span>
               {language === 'English'
                 ? '- Online support'
-                : ' پشتیبانی آنلاین -'}
+                : ' - پشتیبانی آنلاین'}
             </span>
           </div>
         </div>

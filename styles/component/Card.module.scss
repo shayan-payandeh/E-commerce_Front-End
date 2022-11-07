@@ -4,10 +4,13 @@
 .card {
     margin-bottom: 20px;
     box-shadow:  rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    
-    @media(max-width: 768px) {
-      width: 90%;
-      margin: 10px 17px;
+    width: 100%;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    @media only screen and (max-width: 899px) {
+      max-width: 380px;
+      margin: 10px auto;
     }
 
     .addButton {

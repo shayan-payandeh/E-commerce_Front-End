@@ -1,33 +1,44 @@
 @use '../abstracts/variables' as var;
 .filterSection {
-    @media(max-width: 899px){
-      display: none;
+  display: none;
+    @media screen and(min-width: 900px){
+      display: block;
     }
   }
 
 .filterSectionMobile {
-    display: none;
-    width: 90%;
+    display: block;
     border: 2px solid rgba(0, 0, 0, 0.24) ;
     margin: 10px auto;
-    @media(max-width: 899px) {
+    width: 95%;
+    @media screen and(min-width: 900px) {
+      display: none;
+    };
+    @media screen and(max-width: 599px) {
       display: block;
+      max-width: 400px;
     };
   };
 
   .silderFilterSection{
-    @media(max-width: 899px) {
-      display: none;   
+    display: none;
+    @media screen and(min-width: 900px){
+      display: block;
     }
   }
   .silderFilterSectionMobile{
-    display: none;
-    width: 90%;
+    display: block;
+    width: 95%;
     border: 2px solid rgba(0, 0, 0, 0.24) ;
     margin: 10px auto;
-    @media(max-width: 899px) {
+    @media screen and(min-width: 900px) {
+      display: none;
+    };
+    @media screen and(max-width: 599px) {
       display: block;
-    }
+      max-width: 400px;
+    };
+
   }
 
   :export {
