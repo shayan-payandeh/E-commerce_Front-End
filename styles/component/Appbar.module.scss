@@ -122,4 +122,7 @@
     }
 }
   
-  
+:export {
+  primary: var.$primary;
+  lightPrimary: var.$lightPrimary;
+}

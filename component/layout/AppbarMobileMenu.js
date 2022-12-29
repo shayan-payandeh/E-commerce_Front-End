@@ -30,14 +30,17 @@ function AppbarMobileMenu() {
   return (
     <>
       <header color="default" className={styles.secondeNavbarMobile}>
-        <Accordion defaultExpanded={false}>
+        <Accordion
+          defaultExpanded={false}
+          style={{ backgroundColor: styles.primary }}
+        >
           <AccordionSummary
             style={
-              language === 'English'
+              expandMenu
                 ? {
-                    marginLeft: '5%',
+                    backgroundColor: styles.lightPrimary,
                   }
-                : { marginLeft: '90%' }
+                : { backgroundColor: '#fff' }
             }
             onClick={() => setExpandMenu((prev) => !prev)}
             expandIcon={!expandMenu ? <MenuRounded /> : <CloseRounded />}
@@ -58,6 +61,7 @@ function AppbarMobileMenu() {
                     style={{
                       marginLeft: 'auto',
                       marginRight: 'auto',
+                      color: '#fff',
                     }}
                   >
                     <span>{language === 'English' ? 'Home' : 'خانه'}</span>
@@ -67,7 +71,7 @@ function AppbarMobileMenu() {
               <ListItem>
                 <Divider
                   style={{
-                    width: '250px',
+                    width: '100%',
                     backgroundColor: '#dedede',
                     margin: '0 auto',
                   }}
@@ -79,6 +83,7 @@ function AppbarMobileMenu() {
                     style={{
                       marginLeft: 'auto',
                       marginRight: 'auto',
+                      color: '#fff',
                     }}
                   >
                     <span>
@@ -90,7 +95,7 @@ function AppbarMobileMenu() {
               <ListItem>
                 <Divider
                   style={{
-                    width: '250px',
+                    width: '100%',
                     backgroundColor: '#dedede',
                     margin: '0 auto',
                   }}
@@ -102,6 +107,7 @@ function AppbarMobileMenu() {
                     style={{
                       marginLeft: 'auto',
                       marginRight: 'auto',
+                      color: '#fff',
                     }}
                   >
                     <span>

@@ -125,7 +125,7 @@ function Products({ productsInit, categories, brands }) {
             checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Brand' : 'برند'}
           />
-          <SliderFilterSection />
+          {/* <SliderFilterSection /> */}
           <FilterSectionMobile
             productTypes={productCategories}
             checkBoxHandler={filterHandler}
@@ -136,7 +136,7 @@ function Products({ productsInit, categories, brands }) {
             checkBoxHandler={filterHandler}
             label={language === 'English' ? 'Brand' : 'برند'}
           />
-          <SliderFilterSectionMobile />
+          {/* <SliderFilterSectionMobile /> */}
         </Grid>
 
         <Grid
@@ -206,8 +206,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       productsInit: productsResult.data ? productsResult.data.data : [],
-      categories: categoriesResult.data ? categoriesResult.data.result : [],
-      brands: brandsResult.data ? brandsResult.data.result : [],
+      categories: categoriesResult.data ? categoriesResult.data.data.docs : [],
+      brands: brandsResult.data ? brandsResult.data.data.docs : [],
     },
   };
 }

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardActionArea,
@@ -25,10 +26,11 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
       setCartFlag(false);
     } else setCartFlag(true);
   }, [cartItems]);
+
   return (
     <Card className={styles.card}>
       <NextLink href={`${productsUrl}/${product.slug}`} passHref>
-        <CardActionArea>
+        <CardActionArea className={styles.cardAction}>
           <CardMedia
             component="img"
             image={product.image}
@@ -40,19 +42,16 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
               direction={language === 'English' ? 'row' : 'row-reverse'}
             >
               <Grid item md={6} xs={6}>
-                <Typography align={language === 'English' ? 'left' : 'right'}>
-                  <span style={{ fontSize: '2.2vh' }}>{product.name}</span>
+                <Typography
+                  className={styles.productName}
+                  align={language === 'English' ? 'left' : 'right'}
+                >
+                  <span>{product.name}</span>
                 </Typography>
               </Grid>
               {language !== 'English' && (
                 <Grid item container md={6} xs={6}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      width: '100%',
-                      fontSize: '2.2vh',
-                    }}
-                  >
+                  <div className={styles.priceContainer}>
                     <div>{priceUnit}</div>
                     &nbsp;
                     <div>{priceConvertor(product.price)}</div>
@@ -62,10 +61,7 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
               {language === 'English' && (
                 <Grid item md={6} xs={6}>
                   <Typography align="right">
-                    <span style={{ fontSize: '2.3vh' }}>
-                      {'$'}
-                      {product.price}
-                    </span>
+                    <span>{`$${product.price}`}</span>
                   </Typography>
                 </Grid>
               )}
@@ -81,56 +77,32 @@ function ProductCard({ product, language, addToCartHandler, cartItems }) {
             variant="contained"
             className={styles.addButton}
           >
-            <span style={{ fontSize: '13px' }}>
+            <span>
               {language === 'English' ? 'Add To Cart' : 'افزودن به سبد خرید'}
             </span>
           </Button>
         )}
         {!cartFlag && theItem && (
-          <div
-            style={{
-              display: 'flex',
-              width: '100%',
-              justifyContent: 'space-between',
-            }}
-          >
+          <Box className={styles.updateButtonContainer}>
             <Button
+              className={styles.updateButton}
               onClick={() => addToCartHandler(product, -1)}
-              style={{
-                backgroundColor: styles.primary,
-                color: 'white',
-                fontSize: '16px',
-                width: '23%',
-              }}
             >
               -
             </Button>
-            <div style={{ width: '54%', backgroundColor: 'pink' }}>
+            <Box className={styles.textFieldContainer}>
               <TextField
-                style={{ width: '100%' }}
-                inputProps={{
-                  style: {
-                    border: `solid 1px ${styles.primary}`,
-                    padding: '9px 0',
-                    backgroundColor: '#f8f8f8',
-                    textAlign: 'center',
-                  },
-                }}
+                inputProps={{ className: styles.theTextField }}
                 value={theItem.quantity}
               />
-            </div>
+            </Box>
             <Button
+              className={styles.updateButton}
               onClick={() => addToCartHandler(product, 1)}
-              style={{
-                backgroundColor: styles.primary,
-                color: 'white',
-                fontSize: '16px',
-                width: '23%',
-              }}
             >
               +
             </Button>
-          </div>
+          </Box>
         )}
       </CardActions>
     </Card>
